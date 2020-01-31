@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ma.vue.boot.mapper.CaseMapper" >
+
+    <resultMap id="BaseResultMap" type="com.ma.vue.boot.entity.CaseEntity">
+        <id column="CASE_ID" property="id"/>
+        <result column="CASE_NAME" property="name"/>
+        <result column="CASE_HOSPITAL" property="hospital"/>
+        <result column="CASE_MESSAGE" property="message"/>
+        <result column="CASE_TYPE" property="type"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        t.CASE_ID,
+        t.CASE_NAME,
+        t.CASE_HOSPITAL,
+        t.CASE_MESSAGE,
+        t.CASE_TYPE
+    </sql>
+
+
+
+</mapper>

@@ -1,9 +1,13 @@
 package com.ma.vue.boot.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ma.vue.boot.aop.OperationLog;
 import com.ma.vue.boot.entity.Menu;
+import com.ma.vue.boot.mapper.MenuMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +18,10 @@ import java.util.List;
 @RequestMapping("api/menu")
 public class MenuController {
     private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
+
+    @Autowired
+    private MenuMapper menuMapper;
+
     /**
      * 获取菜单
      *
@@ -23,22 +31,23 @@ public class MenuController {
     @RequestMapping(value = "/getMenus", method = RequestMethod.GET)
     public List<Menu> getMenus() {
         List<Menu> menuList = new ArrayList<>();
-        List<Menu> menuChildList  = new ArrayList<>();
-        Menu menu = new Menu();
-        Menu menuParent = new Menu();
-        menuParent.setName("医院");
-        menuParent.setUrl("coupon");
-        menu.setMenuIcon("123");
-        menu.setType("1");
-        menu.setRemarks("开户");
-        menu.setIsshow((short)1);
-        menu.setSort(1);
-        menu.setUrl("coupon_list");
-        menu.setName("百度");
-        menu.setId("123455");
-        menuChildList.add(menu);
-        menuParent.setChildMenus(menuChildList);
-        menuList.add(menuParent);
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("MENU_DEL_FLAG","0");
+        List<Menu> list = menuMapper.selectList(queryWrapper);
+        for(Menu menu:list){
+            if(StringUtils.isEmpty(menu.getParentId())){
+                for(Menu childMenu:list){
+                    if(menu.getId().equals(childMenu.getParentId())){
+                        if(menu.getChildMenus()==null){
+                            menu.setChildMenus(new ArrayList<Menu>());
+                        }
+                        menu.getChildMenus().add(childMenu);
+                    }
+                }
+                menuList.add(menu);
+            }
+        }
         return menuList;
     }
 }

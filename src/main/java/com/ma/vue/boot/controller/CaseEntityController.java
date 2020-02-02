@@ -9,6 +9,8 @@ import com.ma.vue.boot.entity.CaseCondition;
 import com.ma.vue.boot.entity.CaseEntity;
 import com.ma.vue.boot.mapper.CaseMapper;
 import com.ma.vue.boot.service.ICaseEntityService;
+import com.ma.vue.boot.shiro.realm.UserRealm;
+import com.ma.vue.boot.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +44,13 @@ public class CaseEntityController {
             logger.warn("医院档案为空");
             throw new RuntimeException("医院档案为空");
         }
-
+        UserRealm.Principal principal = UserUtils.getPrincipal();
+        if(principal==null){
+            throw new RuntimeException("请等候后再试");
+        }
         CaseEntity caseEntity = JSON.parseObject(caseEntityString,CaseEntity.class);
         caseEntity.setCreateDate(new Date());
+        caseEntity.setHospital(principal.getName());
         mapper.insert(caseEntity);
         logger.info("新建医院档案信息 ； {}",caseEntity);
         return true;

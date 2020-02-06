@@ -63,8 +63,8 @@ public class UserRealm extends AuthorizingRealm {
         LOGGER.info("UserRealm  AuthenticationInfo username" + username);
         UserEntity userEntity =  new UserEntity();
         userEntity.setUserName(authcToken.getUsername());
-        Wrapper<UserEntity> queryWrapper =  new QueryWrapper<UserEntity>(userEntity);
-
+        QueryWrapper<UserEntity> queryWrapper =  new QueryWrapper<UserEntity>();
+        queryWrapper.eq("USER_NAME",authcToken.getUsername());
         UserEntity userAcount = userService.getOne(queryWrapper);
         // 没找到帐号
         if (userAcount == null) {
@@ -129,10 +129,32 @@ public class UserRealm extends AuthorizingRealm {
 
         private String id; // 编号
         private String name; // 登录名
-        private String realname; // 登录名
+        private String realName; // 登录名
+        private int level ;
+        private String hospital;
+
         public Principal(UserEntity userEntity){
             this.id = userEntity.getId();
             this.name = userEntity.getUserName();
+            this.realName = userEntity.getUserName();
+            this.level = userEntity.getLevle();
+            this.hospital = userEntity.getHospital();
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
+        }
+
+        public String getHospital() {
+            return hospital;
+        }
+
+        public void setHospital(String hospital) {
+            this.hospital = hospital;
         }
 
         @Override
@@ -156,12 +178,12 @@ public class UserRealm extends AuthorizingRealm {
             this.name = name;
         }
 
-        public String getRealname() {
-            return realname;
+        public String getRealName() {
+            return realName;
         }
 
-        public void setRealname(String realname) {
-            this.realname = realname;
+        public void setRealName(String realName) {
+            this.realName = realName;
         }
     }
 }

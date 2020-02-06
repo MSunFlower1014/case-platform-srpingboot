@@ -48,11 +48,18 @@ public class CaseEntityController {
         if(principal==null){
             throw new RuntimeException("请等候后再试");
         }
+
         CaseEntity caseEntity = JSON.parseObject(caseEntityString,CaseEntity.class);
-        caseEntity.setCreateDate(new Date());
-        caseEntity.setHospital(principal.getName());
-        mapper.insert(caseEntity);
-        logger.info("新建医院档案信息 ； {}",caseEntity);
+        if(StringUtils.isEmpty(caseEntity.getId())){
+            caseEntity.setCreateDate(new Date());
+            caseEntity.setHospital(principal.getHospital());
+            caseEntity.setStatus("1");  //正常
+            mapper.insert(caseEntity);
+            logger.info("新建医院档案信息 ； {}",caseEntity);
+        }else{
+            mapper.updateById(caseEntity);
+            logger.info("更新医院档案信息 ； {}",caseEntity);
+        }
         return true;
     }
 

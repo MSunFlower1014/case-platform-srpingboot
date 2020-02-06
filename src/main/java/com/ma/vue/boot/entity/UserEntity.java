@@ -19,10 +19,12 @@ public class UserEntity {
 
     @TableField(value = "USER_PASSWORD")
     private String password;
-    /**
-     * 用户对应的角色集合
-     */
-    //private Set<RoleEntity> roles;
+
+    @TableField(value = "USER_LEVEL")
+    private int levle;
+
+    @TableField(value = "USER_HOSPITAL")
+    private String hospital;
 
     public String getId() {
         return id;
@@ -48,11 +50,19 @@ public class UserEntity {
         this.password = password;
     }
 
-//    public Set<RoleEntity> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<RoleEntity> roles) {
-//        this.roles = roles;
-//    }
+    public int getLevle() {
+        return levle;
+    }
+
+    public void setLevle(int levle) {
+        this.levle = levle;
+    }
+
+    public String getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
+    }
 }

@@ -1,6 +1,7 @@
 package com.ma.vue.boot.entity;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -47,6 +48,7 @@ public class CaseEntity {
     @TableField(value = "CASE_TYPE")
     private String type;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("创建时间")
     @TableField(value = "CASE_DATE")
     private Date createDate;

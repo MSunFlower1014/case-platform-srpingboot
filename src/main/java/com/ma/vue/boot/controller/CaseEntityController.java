@@ -18,8 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/case")
@@ -94,6 +92,7 @@ public class CaseEntityController {
     public IPage getCaseInfoPage(@RequestBody CaseCondition caseCondition)  {
         Page<CaseEntity> page = new Page<>(caseCondition.getPageNum(),caseCondition.getPageSize());
         QueryWrapper entityWrapper = new QueryWrapper();
+        entityWrapper.eq("CASE_HOSPITAL",UserUtils.getPrincipal().getHospital());
         entityWrapper.like("CASE_NAME",caseCondition.getCaseName());
         entityWrapper.orderBy(false,false,"CASE_DATE");
         IPage iPage = mapper.selectPage(page, entityWrapper);
@@ -111,5 +110,28 @@ public class CaseEntityController {
         CaseEntity caseEntity = mapper.selectById(id);
         logger.info("根据id获取医院档案信息 ； {}",caseEntity);
         return caseEntity;
+    }
+
+    /**
+     * 根据档案id结档
+     * @return
+     */
+    @RequestMapping("/changeCaseStatus")
+    @OperationLog(value = "根据档案id结档")
+    public boolean changeCaseStatus(@RequestBody String  id)  {
+        if(StringUtils.isEmpty(id)){
+            return false;
+        }
+        CaseEntity caseEntity = mapper.selectById(id);
+        if(caseEntity==null){
+            return false;
+        }
+        if(!"1".equals(caseEntity.getStatus())){
+            return false;
+        }
+        logger.info("根据档案id结档 ； {}",caseEntity);
+        caseEntity.setStatus("3");
+        mapper.updateById(caseEntity);
+        return true;
     }
 }

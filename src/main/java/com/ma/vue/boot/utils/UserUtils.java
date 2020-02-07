@@ -35,7 +35,7 @@ public class UserUtils {
 			UserEntity user = new UserEntity();
 			user.setUserName(principal.getName());
 			user.setId(principal.getId());
-
+			user.setHospital(principal.getHospital());
 			return user;
 		}
 		// 如果没有登录，则返回实例化空的User对象。

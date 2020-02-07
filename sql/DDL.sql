@@ -37,10 +37,15 @@ CREATE TABLE `TF_MM_MENU` (
   PRIMARY KEY (`MENU_ID`)
 ) COMMENT '菜单表',ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert into TF_MM_MENU values('00000',null,'首页','','',1,1,SYSDATE(),'0');
+insert into TF_MM_MENU values('000000','00000','首页','','',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00001',null,'病例','case','case',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00002','00001','病例列表','case_list','case_list',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00003','00001','病例详情','case_details','case_details',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00004','00001','病例编辑','case_add','case_add',1,1,SYSDATE(),'0');
+
+insert into TF_MM_MENU values('00010',null,'转诊','referral','referral',1,1,SYSDATE(),'0');
+insert into TF_MM_MENU values('00011','00010','转诊列表','referral_list','referral_list',1,1,SYSDATE(),'0');
 COMMIT;
 
 CREATE TABLE `TF_MM_REFERRAL` (
@@ -53,6 +58,6 @@ CREATE TABLE `TF_MM_REFERRAL` (
   `MESSAGE` varchar(255) DEFAULT NULL COMMENT '转诊单备注',
   `TYPE` varchar(2) DEFAULT NULL COMMENT '转诊类型 1 上转转诊 2 下转转诊',
   `CREATE_DATE` date COMMENT '转诊单创建时间',
-  `STATUS` varchar(2) DEFAULT NULL COMMENT '1 接受中 2 已接受',
+  `STATUS` varchar(2) DEFAULT NULL COMMENT '1 接受中 2 已接受 3 已拒绝',
   PRIMARY KEY (`REFERRAL_ID`)
 ) COMMENT '转诊记录表',ENGINE=InnoDB DEFAULT CHARSET=utf8;

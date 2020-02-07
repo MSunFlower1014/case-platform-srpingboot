@@ -1,10 +1,12 @@
 package com.ma.vue.boot.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ma.vue.boot.aop.OperationLog;
-import com.ma.vue.boot.entity.CaseEntity;
-import com.ma.vue.boot.entity.ReferralEntity;
-import com.ma.vue.boot.entity.UserEntity;
+import com.ma.vue.boot.entity.*;
 import com.ma.vue.boot.mapper.CaseMapper;
 import com.ma.vue.boot.mapper.ReferralMapper;
 import com.ma.vue.boot.mapper.UserMapper;
@@ -15,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,6 +77,49 @@ public class ReferralController {
         referralMapper.insert(referralEntity);
         caseEntity.setStatus("2");
         caseMapper.updateById(caseEntity);
+        return ReturnMessageUtils.returnErrorMessage(0,"成功");
+    }
+
+    /**
+     * 获取转诊信息
+     * @return
+     */
+    @RequestMapping("/{getReferralInfo}")
+    @OperationLog(value = "获取转诊信息")
+    public IPage getReferralInfo(@RequestBody ReferralCondition referralCondition)  {
+        Page<ReferralEntity> page = new Page<>(referralCondition.getPageNum(),referralCondition.getPageSize());
+        QueryWrapper entityWrapper = new QueryWrapper();
+        entityWrapper.eq("NEW_OWN_NAME",UserUtils.getPrincipal().getHospital());
+        entityWrapper.like("CASE_ID",referralCondition.getCaseId());
+        entityWrapper.orderBy(false,false,"CREATE_DATE");
+        IPage iPage = referralMapper.selectPage(page, entityWrapper);
+        logger.info("获取医院档案信息 ； {}",iPage);
+        return iPage;
+    }
+
+    /**
+     * 操作转诊信息
+     * @return
+     */
+    @RequestMapping("/checkReferral")
+    @OperationLog(value = "操作转诊信息")
+    public Map checkReferral(@RequestBody JSONObject jsonObject)  {
+        if(jsonObject.isEmpty()){
+            return ReturnMessageUtils.returnErrorMessage(-1,"所要操作的转诊信息为空");
+        }
+        ReferralEntity referralEntity = referralMapper.selectById(jsonObject.getString("id"));
+        CaseEntity caseEntity = caseMapper.selectById(referralEntity.getCaseId());
+        if ("1".equals(jsonObject.getString("flag"))) {
+            caseEntity.setHospital(referralEntity.getNewOwnName()); //接受修改对应医院
+            caseEntity.setStatus("1");
+            referralEntity.setStatus(2);    //已接受
+        }else{
+            caseEntity.setStatus("1");  //病例置为正常状态，可重新转诊
+            referralEntity.setStatus(3);    //已拒绝
+        }
+        referralMapper.updateById(referralEntity);
+        caseMapper.updateById(caseEntity);
+        logger.info("操作转诊信息 ； {}",jsonObject);
         return ReturnMessageUtils.returnErrorMessage(0,"成功");
     }
 }

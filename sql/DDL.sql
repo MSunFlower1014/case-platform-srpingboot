@@ -37,8 +37,9 @@ CREATE TABLE `TF_MM_MENU` (
   PRIMARY KEY (`MENU_ID`)
 ) COMMENT '菜单表',ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into TF_MM_MENU values('00000',null,'首页','','',1,1,SYSDATE(),'0');
+insert into TF_MM_MENU values('00000',null,'首页','dashboard','dashboard',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('000000','00000','首页','','',1,1,SYSDATE(),'0');
+
 insert into TF_MM_MENU values('00001',null,'病例','case','case',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00002','00001','病例列表','case_list','case_list',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00003','00001','病例详情','case_details','case_details',1,1,SYSDATE(),'0');

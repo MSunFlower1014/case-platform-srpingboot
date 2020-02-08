@@ -48,11 +48,9 @@ public class UserEntityController {
      */
     @OperationLog(value = "获取用户列表")
     @RequestMapping(value = "/getUserList")
-    public IPage<UserEntity> getUserList(@RequestBody PageCondition pageCondition, @RequestParam String name) {
-        Page<UserEntity> page = new Page(pageCondition.getPageNum(),pageCondition.getPageSize());
+    public List<UserEntity> getUserList( ) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like("USER_NAME",name);
         queryWrapper.orderBy(false,false,"USER_ID");
-        return userMapper.selectPage(page,queryWrapper);
+        return userMapper.selectList(queryWrapper);
     }
 }

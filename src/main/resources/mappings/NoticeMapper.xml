@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ma.vue.boot.mapper.NoticeMapper" >
+
+    <resultMap id="NoticeResultMap" type="com.ma.vue.boot.entity.NoticeEntity">
+        <id column="NOTICE_ID" property="id"/>
+        <result column="NOTICE_STATUS" property="status"/>
+        <result column="NOTICE_CREATE_DATE" property="createDate"/>
+        <association property="referralEntity" resultMap="referralMap"/>
+    </resultMap>
+
+    <!-- 转诊单-->
+    <resultMap id="referralMap" type="com.ma.vue.boot.entity.ReferralEntity" >
+        <id property="id" column="REFERRAL_ID"/>
+        <result property="caseId" column="CASE_ID"/>
+        <result property="oldOwnId" column="OLD_OWN_ID"/>
+        <result property="oldOwnName" column="OLD_OWN_NAME"/>
+        <result property="newOwnId" column="NEW_OWN_ID"/>
+        <result property="newOwnName" column="NEW_OWN_NAME"/>
+        <result property="message" column="MESSAGE"/>
+        <result property="type" column="TYPE"/>
+        <result property="createDate" column="CREATE_DATE"/>
+        <result property="status" column="STATUS"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="NoticeResultMap">
+        select a.NOTICE_ID,a.NOTICE_STATUS,a.NOTICE_CREATE_DATE,b.*
+        from TF_MM_NOTICE a
+        left join TF_MM_REFERRAL b
+        on a.REFERRAL_ID = b.REFERRAL_ID
+        where b.CASE_ID like '%${id}%'
+        <!-- and b.OLD_OWN_NAME = #{hospital} -->
+    </select>
+
+    <select id="listNotice" resultMap="NoticeResultMap">
+        select a.NOTICE_ID,a.NOTICE_STATUS,a.NOTICE_CREATE_DATE,b.*
+        from TF_MM_NOTICE a
+        left join TF_MM_REFERRAL b
+        on a.REFERRAL_ID = b.REFERRAL_ID
+        where b.OLD_OWN_NAME = #{hospital}
+    </select>
+</mapper>

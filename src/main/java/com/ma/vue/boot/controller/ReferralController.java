@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ma.vue.boot.aop.OperationLog;
 import com.ma.vue.boot.entity.*;
 import com.ma.vue.boot.mapper.CaseMapper;
+import com.ma.vue.boot.mapper.NoticeMapper;
 import com.ma.vue.boot.mapper.ReferralMapper;
 import com.ma.vue.boot.mapper.UserMapper;
 import com.ma.vue.boot.shiro.realm.UserRealm;
@@ -38,6 +39,9 @@ public class ReferralController {
 
     @Autowired
     private CaseMapper caseMapper;
+
+    @Autowired
+    private NoticeMapper noticeMapper;
     /**
      * 新建档案转派流程
      * @param referralEntityString
@@ -109,6 +113,7 @@ public class ReferralController {
         }
         ReferralEntity referralEntity = referralMapper.selectById(jsonObject.getString("id"));
         CaseEntity caseEntity = caseMapper.selectById(referralEntity.getCaseId());
+
         if ("1".equals(jsonObject.getString("flag"))) {
             caseEntity.setHospital(referralEntity.getNewOwnName()); //接受修改对应医院
             caseEntity.setStatus("1");
@@ -117,6 +122,11 @@ public class ReferralController {
             caseEntity.setStatus("1");  //病例置为正常状态，可重新转诊
             referralEntity.setStatus(3);    //已拒绝
         }
+        NoticeEntity noticeEntity = new NoticeEntity();
+        noticeEntity.setReferralId(referralEntity.getId());
+        noticeEntity.setStatus("0");
+        noticeEntity.setCreateDate(new Date());
+        noticeMapper.insert(noticeEntity);
         referralMapper.updateById(referralEntity);
         caseMapper.updateById(caseEntity);
         logger.info("操作转诊信息 ； {}",jsonObject);

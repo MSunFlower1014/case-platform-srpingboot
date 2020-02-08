@@ -42,11 +42,12 @@ insert into TF_MM_MENU values('000000','00000','首页','','',1,1,SYSDATE(),'0')
 
 insert into TF_MM_MENU values('00001',null,'病例','case','case',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00002','00001','病例列表','case_list','case_list',1,1,SYSDATE(),'0');
-insert into TF_MM_MENU values('00003','00001','病例详情','case_details','case_details',1,1,SYSDATE(),'0');
-insert into TF_MM_MENU values('00004','00001','病例编辑','case_add','case_add',1,1,SYSDATE(),'0');
+
+insert into TF_MM_MENU values('00004','00001','病例新增','case_add','case_add',1,1,SYSDATE(),'0');
 
 insert into TF_MM_MENU values('00010',null,'转诊','referral','referral',1,1,SYSDATE(),'0');
-insert into TF_MM_MENU values('00011','00010','转诊列表','referral_list','referral_list',1,1,SYSDATE(),'0');
+insert into TF_MM_MENU values('00011','00010','转诊申请列表','referral_list','referral_list',1,1,SYSDATE(),'0');
+insert into TF_MM_MENU values('00012','00010','转诊结果列表','referral_result','referral_result',1,1,SYSDATE(),'0');
 COMMIT;
 
 CREATE TABLE `TF_MM_REFERRAL` (
@@ -62,3 +63,12 @@ CREATE TABLE `TF_MM_REFERRAL` (
   `STATUS` varchar(2) DEFAULT NULL COMMENT '1 接受中 2 已接受 3 已拒绝',
   PRIMARY KEY (`REFERRAL_ID`)
 ) COMMENT '转诊记录表',ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `TF_MM_NOTICE` (
+  `NOTICE_ID` varchar(36) NOT NULL COMMENT '转诊结果提醒id',
+  `REFERRAL_ID` varchar(36)  COMMENT '转诊单id',
+  `NOTICE_STATUS` varchar(2) DEFAULT NULL COMMENT '0 提醒 1 已阅',
+  `NOTICE_CREATE_DATE` date COMMENT '处理时间',
+  PRIMARY KEY (`NOTICE_ID`)
+) COMMENT '转诊结果提醒表',ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into TF_MM_NOTICE values('0001','4ec76b45524e06f91cddb78e2e08051c','0',1,1,SYSDATE());

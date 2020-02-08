@@ -48,6 +48,9 @@ insert into TF_MM_MENU values('00004','00001','病例新增','case_add','case_ad
 insert into TF_MM_MENU values('00010',null,'转诊','referral','referral',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00011','00010','转诊申请列表','referral_list','referral_list',1,1,SYSDATE(),'0');
 insert into TF_MM_MENU values('00012','00010','转诊结果列表','referral_result','referral_result',1,1,SYSDATE(),'0');
+
+insert into TF_MM_MENU values('00020',null,'用户','user','user',1,1,SYSDATE(),'0');
+insert into TF_MM_MENU values('00021','00020','用户列表','user_list','user_list',1,1,SYSDATE(),'0');
 COMMIT;
 
 CREATE TABLE `TF_MM_REFERRAL` (

@@ -1,5 +1,6 @@
 package com.ma.vue.boot.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ma.vue.boot.aop.OperationLog;
 import com.ma.vue.boot.common.Constant;
 import com.ma.vue.boot.entity.UserEntity;
@@ -14,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -44,9 +42,10 @@ public class LoginController {
      * @return
      */
     @OperationLog(value = "用户创建")
-    @RequestMapping(value = "/saveUser")
-    public Map  saveUser(@RequestBody UserEntity userEntity,HttpServletRequest request) {
+    @RequestMapping(value = "/saveUser",method = RequestMethod.POST)
+    public Map  saveUser(@RequestParam(value = "userEntity") String userEntityString) {
         Map result = new HashMap<>();
+        UserEntity userEntity = JSONObject.parseObject(userEntityString, UserEntity.class);
         try {
             if(StringUtils.isEmpty(userEntity.getUserName())){
                 return ReturnMessageUtils.returnErrorMessage(-1,"无效的用户名");
@@ -89,8 +88,7 @@ public class LoginController {
      */
     @OperationLog(value = "用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Map login(@RequestBody UserEntity loginParam,
-                         HttpServletRequest request) {
+    public Map login(@RequestBody UserEntity loginParam) {
         Map result = new HashMap<>();
         try {
             if(StringUtils.isEmpty(loginParam.getUserName())){

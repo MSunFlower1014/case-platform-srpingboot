@@ -14,6 +14,17 @@ public class UserEntity {
     @TableId(value = "USER_ID", type = IdType.UUID)
     private String id;
 
+    @TableField(exist = false)
+    private String captcha;
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
+
     @TableField(value = "USER_NAME")
     private String userName;
 

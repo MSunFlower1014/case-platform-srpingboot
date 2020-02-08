@@ -88,14 +88,26 @@ public class LoginController {
      */
     @OperationLog(value = "用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Map login(@RequestBody UserEntity loginParam) {
+    public Map login(@RequestBody UserEntity loginParam,HttpServletRequest request) {
         Map result = new HashMap<>();
         try {
+            String random = loginParam.getCaptcha().toLowerCase();
+            if(StringUtils.isEmpty(random)){
+                return ReturnMessageUtils.returnErrorMessage(-1,"无效的验证码");
+            }
             if(StringUtils.isEmpty(loginParam.getUserName())){
                 return ReturnMessageUtils.returnErrorMessage(-1,"无效的用户名");
             }
             if(StringUtils.isEmpty(loginParam.getPassword())){
                 return ReturnMessageUtils.returnErrorMessage(-1,"无效的密码");
+            }
+            String sessionCode = (String) request.getSession().getAttribute(Constant.System.RANDOM_CODE);
+            sessionCode = sessionCode.toLowerCase();
+            if(StringUtils.isEmpty(sessionCode)){
+                return ReturnMessageUtils.returnErrorMessage(-1,"验证码失效");
+            }
+            if(!sessionCode.equals(random)){
+                return ReturnMessageUtils.returnErrorMessage(-1,"验证码错误");
             }
             logger.info("Username:"+loginParam.getUserName()+" Password:"+loginParam.getPassword());
             UsernamePasswordToken token = new UsernamePasswordToken(loginParam.getUserName()

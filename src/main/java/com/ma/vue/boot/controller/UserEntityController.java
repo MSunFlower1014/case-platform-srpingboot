@@ -53,4 +53,18 @@ public class UserEntityController {
         queryWrapper.orderBy(false,false,"USER_ID");
         return userMapper.selectList(queryWrapper);
     }
+
+    /**
+     * 获取用户列表
+     *
+     * @return
+     */
+    @OperationLog(value = "获取用户列表")
+    @RequestMapping(value = "/getUserListPage")
+    public IPage<UserEntity> getUserListPage(@RequestBody PageCondition pageCondition,@RequestParam String name) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like("USER_NAME",name);
+        queryWrapper.orderBy(false,false,"USER_ID");
+        return userMapper.selectPage(new Page<UserEntity>(pageCondition.getPageNum(),pageCondition.getPageSize()),queryWrapper);
+    }
 }

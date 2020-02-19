@@ -15,7 +15,7 @@ import org.springframework.util.StopWatch;
 public class BootApplication {
     private static final Logger log = LoggerFactory.getLogger(BootApplication.class);
     public static void main(String[] args) {
-        log.info("....Begin to start the coupon platform application....");
+        log.info("....Begin to start the case platform application....");
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ApplicationContext context = SpringApplication.run(BootApplication.class, args);

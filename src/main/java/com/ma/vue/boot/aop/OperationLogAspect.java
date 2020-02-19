@@ -15,11 +15,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
-/**
- * @Description:
- * @Author yangxiaolong
- * @Date 2018/8/10
- */
 @Aspect
 @Component
 public class OperationLogAspect {
@@ -31,7 +26,7 @@ public class OperationLogAspect {
     public void pointCut() {
     }
 
-        @Around("pointCut()")
+    @Around("pointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         LOGGER.debug("excute method Aspect around() start");
         Object result = null;

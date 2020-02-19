@@ -2,10 +2,12 @@ package com.ma.vue.boot.configuration;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
+import com.ma.vue.boot.filter.RequestInfoInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -14,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @CreateTime 2019/5/26 17:20
  */
 @Configuration
-public class WebMvcConfiguration {
+public class WebMvcConfiguration implements WebMvcConfigurer{
     private String[] originWhiteList ={"http://localhost","http://127.0.0.1"};
 
 //    @Bean
@@ -24,6 +26,11 @@ public class WebMvcConfiguration {
 //        registration.setOrder(1);
 //        return registration;
 //    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new RequestInfoInterceptor()).addPathPatterns("/**");
+    }
 
     @Bean
     public WebMvcConfigurer corsConfigurer()

@@ -8,10 +8,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @TableName("TF_MM_CASE")
-public class CaseEntity {
+public class CaseEntity implements Serializable {
     @ApiModelProperty("主键")
     @TableId(value = "CASE_ID", type = IdType.UUID)
     private String id;

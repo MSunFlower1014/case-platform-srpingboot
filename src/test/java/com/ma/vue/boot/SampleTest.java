@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -54,6 +55,12 @@ public class SampleTest {
 
     @Autowired
     private JedisPool jedisPool;
+
+    /**
+     * 通过value将spring配置文件中的配置信息绑定到对应属性
+     */
+    @Value("${case.name}")
+    private String caseName;
 
     @Test
     public void testSelect() {
@@ -122,5 +129,10 @@ public class SampleTest {
         Thread.sleep(5000);
         caseEntityService.reloadAllCase();
         logger.info("case List {}",caseEntityService.findAllCase());
+    }
+
+    @Test
+    public void propertiesTest(){
+        logger.info("caseName : = {}",caseName);
     }
 }

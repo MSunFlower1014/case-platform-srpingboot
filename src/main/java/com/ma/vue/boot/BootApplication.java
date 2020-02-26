@@ -24,6 +24,7 @@ public class BootApplication {
         long executionTime = stopWatch.getTotalTimeMillis();
         log.info("....The application '{}' has been took '{}' milliseconds started!", context.getApplicationName(), executionTime);
 
+
     }
 
 }

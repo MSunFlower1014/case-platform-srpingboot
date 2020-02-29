@@ -3,9 +3,9 @@ package com.ma.vue.boot.concurrent;
 import java.util.concurrent.*;
 
 /**
- * 对线程安全类的一些笔记
+ * 对线程安全工具类的一些笔记，主要时一些队列或者Map
  */
-public class ClassNote {
+public class QueueOrMapClassNote {
     /**
      * 一个线程安全的有界队列 由数组实现
      * 通过put和offer插入新元素，通过poll和take消费元素
@@ -84,4 +84,13 @@ public class ClassNote {
      * poll方法会验证队列头元素的延迟是否到期，如果未到期返回null，到期则消耗该元素（如果头元素设置延迟时间过长，无法获取头元素后到期元素）
      */
     private final DelayQueue delayQueue = new DelayQueue();
+
+    /**
+     * 可指定公平性，FIFO或者LIFO
+     * 是一个内部只能包含一个元素的队列。插入元素到队列的线程被阻塞，直到另一个线程从队列中获取了队列中存储的元素。
+     * 同样，如果线程尝试获取元素并且当前不存在任何元素，则该线程将被阻塞，直到线程将元素插入队列。
+     * 队列内部不会存储元素，所以尽量避免使用add,offer此类立即返回的方法
+     * 参考博文 ： https://www.jianshu.com/p/d5e2e3513ba3
+     */
+    private final SynchronousQueue synchronousQueue = new SynchronousQueue();
 }

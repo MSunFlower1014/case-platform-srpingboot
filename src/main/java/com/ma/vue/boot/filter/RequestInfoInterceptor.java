@@ -37,6 +37,7 @@ public class RequestInfoInterceptor implements HandlerInterceptor {
         log.info("uri: {} , method: {} , responseStatus: {},exception : {} , {}ms , {}ms ,{} ms",request.getRequestURI(),
                 method,response.getStatus(),ex == null ? "-" : ex.getMessage(),stopWatch.getTotalTimeMillis(),
                 stopWatch.getTotalTimeMillis() - stopWatch.getLastTaskTimeMillis(),stopWatch.getLastTaskTimeMillis());
+        //结束后必须回收该对象
         stopWatchThreadLocal.remove();
     }
 }

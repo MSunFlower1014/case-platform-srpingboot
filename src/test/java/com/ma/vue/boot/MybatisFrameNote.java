@@ -7,21 +7,8 @@ import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransaction;
-import org.springframework.web.servlet.DispatcherServlet;
 
-/**
- * 框架笔记
- */
-public class FrameNote {
-    /**
-     * SpringMVC的关键类
-     * 继承关系：
-     * DispatcherServlet -> FrameworkServlet -> HttpServletBean -> HttpServlet
-     */
-    private DispatcherServlet dispatcherServlet = new DispatcherServlet();
-
-
-
+public class MybatisFrameNote {
     /**
      * Mybatis的配置类
      * 默认配置可在构造器中查看

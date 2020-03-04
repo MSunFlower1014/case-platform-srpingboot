@@ -71,12 +71,20 @@ public class QueueOrMapClassNote {
      */
     private final ConcurrentSkipListMap concurrentSkipListMap = new ConcurrentSkipListMap();
 
+    private final ConcurrentSkipListSet concurrentSkipListSet = new ConcurrentSkipListSet();
+
     /**
      * 一个线程安全的ArrayList
      * 通过ReentrantLock来实现线程安全
      * 插入或者更新元素时会 创建副本操作之后替换旧版，不影响读取操作（即读操作无锁，写操作加锁）
      */
     private final CopyOnWriteArrayList copyOnWriteArrayList = new CopyOnWriteArrayList();
+
+    /**
+     * 内部维护一个CopyOnWriteArrayList实现
+     * 不能存储重复的元素，所有add方法调用copyOnWriteArrayList的addIfAbsent方法
+     */
+    private final CopyOnWriteArraySet copyOnWriteArraySet = new CopyOnWriteArraySet();
 
     /**
      * 一个线程安全的从小到大的无界延迟队列

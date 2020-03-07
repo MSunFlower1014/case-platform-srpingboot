@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
@@ -49,6 +50,16 @@ public class MenuController {
             }
         }
         return menuList;
+    }
+
+    /**
+     * 该注释会在Controller bean实例化完成后执行
+     * 执行过程：构造器 -> 注入依赖 -> 执行该postProcess
+     */
+    @PostConstruct
+    public void postProcess(){
+        logger.info("MenuController  postProcess   ->>>>>>>> ");
+        logger.info(menuMapper.toString());
     }
 }
 

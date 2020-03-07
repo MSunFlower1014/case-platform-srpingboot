@@ -17,7 +17,7 @@ public class MybatisFrameNote {
     private Configuration configuration = new Configuration();
 
     /**
-     *  Mybatis的sqlSession的工厂类，两种实现SqlSessionManager已被弃用
+     *  Mybatis的sqlSession的工厂类，两种实现其中SqlSessionManager已被弃用
      *  该工厂类通过SqlSessionFactoryBuilder构建
      *  该工厂构建DefaultSqlSession来执行命令，获取映射器和管理事务
      */

@@ -7,6 +7,9 @@ public class SpringNote {
     /**
      * 根据xml创建spring容器
      * 调用refresh方法进行初始化-该方法实现了所有类的注册和增强
+     * refresh流程：
+     * 获取beanFactory -> 准备工厂(设置配置信息) -> 设置后处理器工厂 -> 创建后处理器类 -> 注册后处理器
+     * -> 初始化消息源 -> 初始化发布事件委托类 -> 注册bean数据 -> 注册监听器 -> 完成beanFactory的初始化 -> 完成刷新
      * 其中DefaultSingletonBeanRegistry来存储bean注册信息
      * 通过三个map解决循环依赖
      * 1.Map<String, ObjectFactory<?>> singletonFactories   存放bean的工厂类

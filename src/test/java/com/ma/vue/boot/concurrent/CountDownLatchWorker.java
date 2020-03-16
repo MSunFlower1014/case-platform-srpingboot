@@ -2,6 +2,9 @@ package com.ma.vue.boot.concurrent;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * 使用countDownLatch完成线程通信
+ */
 public class CountDownLatchWorker implements Runnable{
 
     private final CountDownLatch doneSignal;

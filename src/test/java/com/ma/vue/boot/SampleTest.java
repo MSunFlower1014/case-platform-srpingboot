@@ -1,20 +1,15 @@
 package com.ma.vue.boot;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.ma.vue.boot.entity.CaseEntity;
 import com.ma.vue.boot.entity.Coffee;
 import com.ma.vue.boot.entity.UserEntity;
-import com.ma.vue.boot.mapper.UserMapper;
 import com.ma.vue.boot.service.ICaseEntityService;
 import com.ma.vue.boot.service.IUserService;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import lombok.AllArgsConstructor;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -32,7 +27,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)

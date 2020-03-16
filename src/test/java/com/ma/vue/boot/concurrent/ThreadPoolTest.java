@@ -5,13 +5,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 创建一个线程池
+ * ThreadPoolExecutor创建一个线程池
  */
 public class ThreadPoolTest {
     private static final Integer THREAD_MAX_NUM = 50;
     private static final Integer QUEUE_MAX_NUM = 1000;
 
-    private static LinkedBlockingQueue queue = null;
+    private static LinkedBlockingQueue<Runnable> queue = null;
 
     private static ThreadPoolExecutor threadPoolExecutor = null;
 
@@ -20,7 +20,7 @@ public class ThreadPoolTest {
     }
 
     private static void init(){
-        queue = new LinkedBlockingQueue();
+        queue = new LinkedBlockingQueue<>();
         //参数 ： 核心线程数，最大线程数，超时时间，超时时间单位，等待队列，拒绝策略
         threadPoolExecutor = new ThreadPoolExecutor(THREAD_MAX_NUM,THREAD_MAX_NUM,60
                 , TimeUnit.SECONDS,queue,new ThreadPoolExecutor.CallerRunsPolicy());

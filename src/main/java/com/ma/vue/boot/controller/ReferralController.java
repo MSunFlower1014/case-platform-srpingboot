@@ -76,6 +76,7 @@ public class ReferralController {
         }else{
             referralEntity.setType("2");
         }
+
         referralEntity.setNewOwnName(userEntity.getHospital());
         referralEntity.setStatus(1);//1 接受中 2 已接受
         referralMapper.insert(referralEntity);
@@ -128,6 +129,7 @@ public class ReferralController {
         noticeEntity.setCreateDate(new Date());
         noticeMapper.insert(noticeEntity);
         referralMapper.updateById(referralEntity);
+        caseEntity.setDepart(referralEntity.getDepart());
         caseMapper.updateById(caseEntity);
         logger.info("操作转诊信息 ； {}",jsonObject);
         return ReturnMessageUtils.returnErrorMessage(0,"成功");

@@ -58,6 +58,18 @@ public class CaseEntity implements Serializable {
     @TableField(value = "CASE_STATUS")
     private String status;
 
+    @ApiModelProperty("病例科室")
+    @TableField(value = "CASE_DEPART")
+    private String depart;
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
+    }
+
     public String getPatientName() {
         return patientName;
     }

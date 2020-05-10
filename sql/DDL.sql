@@ -7,6 +7,7 @@ CREATE TABLE `TF_MM_CASE` (
   `PATIENT_MOBILE` varchar(20) DEFAULT NULL COMMENT '病人联系方式',
   `CASE_HOSPITAL` varchar(255) DEFAULT NULL COMMENT '所属医院',
   `CASE_MESSAGE` varchar(2550) DEFAULT NULL COMMENT '病例信息',
+  `CASE_DEPART` varchar(2550) DEFAULT NULL COMMENT '病例科室',
   `CASE_TYPE` varchar(255) DEFAULT NULL COMMENT '病例类型',
   `CASE_DATE` DATE  COMMENT '创建时间',
   `CASE_STATUS` varchar(4) DEFAULT NULL COMMENT '病例状态  1 正常  2  转派中   3  出院结束',
@@ -60,6 +61,7 @@ CREATE TABLE `TF_MM_REFERRAL` (
   `OLD_OWN_NAME` varchar(128)  COMMENT '原医院名字',
   `NEW_OWN_ID` varchar(36)  COMMENT '转派医院id',
   `NEW_OWN_NAME` varchar(36)  COMMENT '转派医院名字',
+  `DEPART` varchar(2550) DEFAULT NULL COMMENT '病例科室',
   `MESSAGE` varchar(255) DEFAULT NULL COMMENT '转诊单备注',
   `TYPE` varchar(2) DEFAULT NULL COMMENT '转诊类型 1 上转转诊 2 下转转诊',
   `CREATE_DATE` date COMMENT '转诊单创建时间',
@@ -75,3 +77,21 @@ CREATE TABLE `TF_MM_NOTICE` (
   PRIMARY KEY (`NOTICE_ID`)
 ) COMMENT '转诊结果提醒表',ENGINE=InnoDB DEFAULT CHARSET=utf8;
 insert into TF_MM_NOTICE values('0001','4ec76b45524e06f91cddb78e2e08051c','0',1,1,SYSDATE());
+
+CREATE TABLE `TF_MM_DEPARTMENT` (
+  `P_ID` varchar(36) NOT NULL COMMENT '科室id',
+  `PARENT_ID` varchar(36) NOT NULL COMMENT '父科室id',
+  `NAME` varchar(100)  COMMENT '科室名称',
+  `CREATE_DATE` date COMMENT '创建时间',
+  `STATUS` varchar(1) COMMENT '状态，0为有效，1为无效',
+  PRIMARY KEY (`P_ID`)
+) COMMENT '科室',ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into TF_MM_DEPARTMENT values('0001','0','外科',SYSDATE(),0);
+insert into TF_MM_DEPARTMENT values('0002','0','内科',SYSDATE(),0);
+
+insert into TF_MM_DEPARTMENT values('0010','0002','呼吸内科',SYSDATE(),0);
+insert into TF_MM_DEPARTMENT values('0011','0002','神经内科',SYSDATE(),0);
+
+insert into TF_MM_DEPARTMENT values('0020','0001','骨外科',SYSDATE(),0);
+insert into TF_MM_DEPARTMENT values('0021','0001','神经外科',SYSDATE(),0);

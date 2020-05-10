@@ -44,6 +44,18 @@ public class ReferralEntity {
     @TableField(value = "STATUS")
     private int status;
 
+    @ApiModelProperty("病例科室")
+    @TableField(value = "DEPART")
+    private String depart;
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
+    }
+
     public String getId() {
         return id;
     }

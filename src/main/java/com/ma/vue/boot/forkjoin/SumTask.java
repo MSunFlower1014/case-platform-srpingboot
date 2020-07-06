@@ -41,14 +41,4 @@ public class SumTask extends RecursiveTask<Integer> {
     }
 
 
-    public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            list.add(1);
-        }
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
-        SumTask sumTask = new SumTask(list);
-        Integer sum = forkJoinPool.invoke(sumTask);
-        System.out.println(sum);
-    }
 }

@@ -13,6 +13,7 @@ import java.util.stream.Stream;
  */
 public class Java8Test {
     private static final int MAX_LIST_SIZE = 10;
+
     public static void main(String[] args) {
         Stream<String> stringStream = Stream.of("1", "2");
         //map方法一对一的处理Stream中的元素
@@ -27,6 +28,6 @@ public class Java8Test {
             list.add(String.valueOf(i));
         }
         //parallelStream创建并行流，使用forkJoin提升速度
-        list.parallelStream().forEach(item -> System.out.println(Thread.currentThread().getName()+"   item = "+item));
+        list.parallelStream().forEach(item -> System.out.println(Thread.currentThread().getName() + "   item = " + item));
     }
 }

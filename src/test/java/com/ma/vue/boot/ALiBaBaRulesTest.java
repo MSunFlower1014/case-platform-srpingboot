@@ -4,6 +4,7 @@ package com.ma.vue.boot;
  * 阿里巴巴JAVA开发规范手册测试代码
  */
 public class ALiBaBaRulesTest {
+
     public static void main(String[] args) {
         switchNullTest(null);
     }

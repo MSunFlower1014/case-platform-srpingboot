@@ -1,7 +1,15 @@
 package com.ma.vue.boot;
 
+import org.apache.shiro.util.Assert;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 /**
@@ -29,5 +37,30 @@ public class Java8Test {
         }
         //parallelStream创建并行流，使用forkJoin提升速度
         list.parallelStream().forEach(item -> System.out.println(Thread.currentThread().getName() + "   item = " + item));
+    }
+
+    @Test
+    public void randomTest(){
+        int asInt = ThreadLocalRandom.current().ints(70, 100)
+                .limit(1).findFirst().getAsInt();
+        Assert.notNull(asInt);
+
+    }
+
+    @Test
+    public void localTimeTest(){
+        LocalTime localTime = LocalTime.now();
+
+        LocalTime localTime1 = localTime.plusHours(22);
+        System.out.println(localTime);
+        System.out.println(localTime1);
+        System.out.println(localTime.isBefore(localTime1));
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime1 = localDateTime.plusHours(22);
+        System.out.println(localDateTime);
+        System.out.println(localDateTime1);
+        System.out.println(localDateTime.isBefore(localDateTime1));
+
     }
 }

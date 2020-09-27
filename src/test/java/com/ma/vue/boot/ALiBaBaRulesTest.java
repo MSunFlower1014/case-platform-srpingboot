@@ -2,6 +2,7 @@ package com.ma.vue.boot;
 
 /**
  * 阿里巴巴JAVA开发规范手册测试代码
+ * switch会抛出空指针异常
  */
 public class ALiBaBaRulesTest {
 
@@ -9,7 +10,10 @@ public class ALiBaBaRulesTest {
         switchNullTest(null);
     }
 
-    //
+    /**
+     *
+     * @param param
+     */
     public static void switchNullTest(String param) {
         //switch会抛出NPE
         switch (param) {

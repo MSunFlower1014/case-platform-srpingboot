@@ -31,7 +31,7 @@ public class ConditionTest {
             if(++putInx == item.length)
                 putInx = 0;
             ++count;
-            notFull.signal();
+            notEmpty.signal();
         }finally {
             lock.unlock();
         }

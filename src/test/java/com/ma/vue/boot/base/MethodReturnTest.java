@@ -2,6 +2,8 @@ package com.ma.vue.boot.base;
 
 /**
  * 测试返回值是否为引用传递
+ * 结果 是的
+ * java中对象都是引用传递
  * @author zy_mayantao
  * @date 2020/6/8 17:44
  */

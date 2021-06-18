@@ -1,5 +1,6 @@
 package com.ma.vue.boot.concurrent;
 
+import java.util.PriorityQueue;
 import java.util.concurrent.*;
 
 /**
@@ -16,6 +17,7 @@ public class QueueOrMapClassNote {
 
     /**
      * 线程安全的HashMap
+     * 通过synchronized node保证单个node的线程安全
      * 默认容量16，当主动设置容量时会转换为2的次方
      * 使用hash来提升效率，当hash膨胀时使用链表法，当链长度大于等于8，会将链表转为红黑树，用于提升效率。
      * 红黑树优点：在最坏情况运行时间也是非常良好的，并且在实践中是高效的： 它可以在O(log n)时间内做查找，插入和删除，这里的n 是树中元素的数目
@@ -71,6 +73,9 @@ public class QueueOrMapClassNote {
      */
     private final ConcurrentSkipListMap concurrentSkipListMap = new ConcurrentSkipListMap();
 
+    /**
+     * 内部通过 ConcurrentSkipListMap 实现，与set类似，map的value值唯一
+     */
     private final ConcurrentSkipListSet concurrentSkipListSet = new ConcurrentSkipListSet();
 
     /**
@@ -87,7 +92,7 @@ public class QueueOrMapClassNote {
     private final CopyOnWriteArraySet copyOnWriteArraySet = new CopyOnWriteArraySet();
 
     /**
-     * 一个线程安全的从小到大的无界延迟队列
+     * 一个线程安全的从小到大的无界延迟队列，通过ReentrantLock实现线程安全
      * 放入元素必须实现 implements Delayed 接口，Delayed继承于Comparable接口，即实现compareTo和getDelay方法
      * poll方法会验证队列头元素的延迟是否到期，如果未到期返回null，到期则消耗该元素（如果头元素设置延迟时间过长，无法获取头元素后到期元素）
      */
@@ -101,4 +106,9 @@ public class QueueOrMapClassNote {
      * 参考博文 ： https://www.jianshu.com/p/d5e2e3513ba3
      */
     private final SynchronousQueue synchronousQueue = new SynchronousQueue();
+
+    /**
+     * 线程安全的优先队列，通过堆排序实现
+     */
+    private final PriorityBlockingQueue priorityQueue = new PriorityBlockingQueue<>();
 }

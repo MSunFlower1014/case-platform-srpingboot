@@ -8,6 +8,7 @@ import java.util.concurrent.CyclicBarrier;
 public class CyclicBarrierWorker implements Runnable {
     /**
      * 类似于CountDownLatch 可提供线程计数功能，但可多次使用，每当线程计数达到时会唤醒await线程
+     * 底层通过ReentrantLock加锁实现线程安全
      */
     private CyclicBarrier cyclicBarrier;
 
@@ -37,7 +38,6 @@ public class CyclicBarrierWorker implements Runnable {
         for (int i = 0; i < THREAD_NUM; i++) {
             new Thread(new CyclicBarrierWorker(cyclicBarrier)).start();
         }
-
         for(Thread t : threadList){
             t.join();
         }

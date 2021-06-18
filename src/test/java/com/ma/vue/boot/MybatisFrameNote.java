@@ -7,6 +7,7 @@ import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransaction;
+import org.mybatis.spring.mapper.MapperFactoryBean;
 
 public class MybatisFrameNote {
     /**
@@ -37,4 +38,9 @@ public class MybatisFrameNote {
      * Mybatis默认的结果处理器
      */
     private DefaultResultSetHandler defaultResultSetHandler = null;
+
+    /**
+     * mapper bean 注入工厂类
+     */
+    private MapperFactoryBean mapperFactoryBean = null;
 }

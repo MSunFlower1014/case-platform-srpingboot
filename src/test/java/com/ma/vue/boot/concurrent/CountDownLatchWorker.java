@@ -3,7 +3,9 @@ package com.ma.vue.boot.concurrent;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * 使用countDownLatch完成线程通信
+ * 使用countDownLatch完成线程通信或同步
+ * 通过AQS抽象类和CAS compareAndSetWaitStatus 完成原子状态修改操作
+ * 当计数为0时通过 unsafe 的park和 unPark 使线程阻塞或唤醒
  */
 public class CountDownLatchWorker implements Runnable{
 

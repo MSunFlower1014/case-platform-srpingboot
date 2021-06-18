@@ -35,4 +35,13 @@ public class HttpTest {
                 .andReturn();
         log.info("response = {} , content = {}",mvcResult,mvcResult.getResponse());
     }
+
+    @Test
+    public void test(){
+        String a = "1";
+        String b = "2";
+        char c = a.charAt(0);
+        char c1 = b.charAt(0);
+        System.out.println(c>c1);
+    }
 }

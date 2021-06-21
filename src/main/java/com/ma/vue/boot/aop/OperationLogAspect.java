@@ -38,6 +38,8 @@ public class OperationLogAspect {
             // 执行时长(毫秒)
             stopWatch.stop();
             executionTime = stopWatch.getTotalTimeMillis();
+
+
         } catch (Throwable throwable) {
             dealOperationLog(point, executionTime, throwable);
             LOGGER.error("excute method fail");

@@ -11,6 +11,8 @@ public class MapNote {
      */
     private final LinkedHashMap<String,Object> linkedHashMap = new LinkedHashMap();
 
+    public final HashMap<String,String> map = new HashMap<>();
+
     @Test
     public void getOrDefaultTest(){
         Map<String,List<String>> map = new HashMap<>();
